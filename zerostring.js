@@ -1,5 +1,23 @@
-const numString = "10030040050060007";
 
-function longestZeroString (numberString){
+function longestZeroString (intValue){
   
+  let highZeroCount = 0;
+  let zeroCount = 0; 
+  let startAtOneCount = false;
+  const intToBin = intValue.toString(2);
+
+  intToBin.split('').forEach((oneCheck, index, stringArray) => {
+    if (oneCheck === "1" && !startAtOneCount){
+      startAtOneCount = true;
+    } else if (oneCheck === "1" && oneCheck && stringArray[index-1] === "0") {
+      if (zeroCount > highZeroCount){
+        highZeroCount = zeroCount;
+      }
+      startAtOneCount = false;
+    }
+    if (startAtOneCount && oneCheck === "0") {
+      zeroCount++;
+    }
+  });
+  return highZeroCount;
 }
